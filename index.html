@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Weather Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         MAIN APP
+    ========================== -->
+
+    <div class="app">
+
+
+        <!-- =========================
+             SIDEBAR
+        ========================== -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <div class="logo-icon">
+                    🌦️
+                </div>
+
+                <span>Weathery</span>
+
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <button class="nav-item active">
+                    <span>▦</span>
+                    <small>Dashboard</small>
+                </button>
+
+                <button class="nav-item">
+                    <span>⌖</span>
+                    <small>Map</small>
+                </button>
+
+                <button class="nav-item">
+                    <span>◎</span>
+                    <small>Locations</small>
+                </button>
+
+                <button class="nav-item">
+                    <span>◉</span>
+                    <small>Weather</small>
+                </button>
+
+                <button class="nav-item">
+                    <span>▣</span>
+                    <small>Calendar</small>
+                </button>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <button class="nav-item">
+                    <span>⚙</span>
+                    <small>Settings</small>
+                </button>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+
+        <main class="main-content">
+
+
+            <!-- TOP BAR -->
+
+            <header class="top-bar">
+
+                <div>
+
+                    <p class="welcome">
+                        Weather Dashboard
+                    </p>
+
+                    <h1>
+                        Today's Weather
+                    </h1>
+
+                </div>
+
+
+                <!-- SEARCH -->
+
+                <div class="search-wrapper">
+
+                    <input
+                        type="text"
+                        id="cityInput"
+                        placeholder="Search city..."
+                    >
+
+                    <button id="searchBtn">
+                        🔍
+                    </button>
+
+                </div>
+
+            </header>
+
+
+
+            <!-- =========================
+                 LOADING
+            ========================== -->
+
+            <div id="loading" class="loading hidden">
+
+                <div class="spinner"></div>
+
+                <span>
+                    Loading weather data...
+                </span>
+
+            </div>
+
+
+
+            <!-- =========================
+                 ERROR
+            ========================== -->
+
+            <div id="error" class="error hidden"></div>
+
+
+
+            <!-- =========================
+                 DASHBOARD GRID
+            ========================== -->
+
+            <section class="dashboard-grid">
+
+
+                <!-- =========================
+                     CURRENT WEATHER
+                ========================== -->
+
+                <div
+                    id="weatherCard"
+                    class="current-weather card"
+                >
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            🌤️
+                        </div>
+
+                        <h2>
+                            Search for a city
+                        </h2>
+
+                        <p>
+                            Enter a city above to see
+                            current weather information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     TODAY'S HIGHLIGHTS
+                ========================== -->
+
+                <div class="highlights-section">
+
+                    <div class="section-heading">
+
+                        <h2>
+                            Today's Highlights
+                        </h2>
+
+                    </div>
+
+
+                    <div class="highlights-grid">
+
+
+                        <!-- WIND -->
+
+                        <div class="highlight-card wind-card">
+
+                            <div class="highlight-header">
+
+                                <span>
+                                    Wind Status
+                                </span>
+
+                                <span>
+                                    💨
+                                </span>
+
+                            </div>
+
+
+                            <div class="wind-visual">
+
+                                <div class="wind-line"></div>
+
+                                <div class="wind-bars">
+
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="highlight-value">
+
+                                <strong id="windValue">
+                                    --
+                                </strong>
+
+                                <span>
+                                    km/h
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- UV -->
+
+                        <div class="highlight-card">
+
+                            <div class="highlight-header">
+
+                                <span>
+                                    UV Index
+                                </span>
+
+                                <span>
+                                    ☀️
+                                </span>
+
+                            </div>
+
+
+                            <div class="uv-circle">
+
+                                <div class="uv-inner">
+
+                                    <strong id="uvValue">
+                                        --
+                                    </strong>
+
+                                    <span>
+                                        UV
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- HUMIDITY -->
+
+                        <div class="highlight-card small-highlight">
+
+                            <div>
+
+                                <span class="highlight-title">
+                                    Humidity
+                                </span>
+
+                                <strong id="humidityValue">
+                                    --%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="mini-icon">
+                                💧
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- VISIBILITY -->
+
+                        <div class="highlight-card small-highlight">
+
+                            <div>
+
+                                <span class="highlight-title">
+                                    Visibility
+                                </span>
+
+                                <strong id="visibilityValue">
+                                    -- km
+                                </strong>
+
+                            </div>
+
+
+                            <div class="mini-icon">
+                                👁️
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =========================
+                 FORECAST
+            ========================== -->
+
+            <section class="forecast-section">
+
+
+                <div class="section-heading">
+
+                    <h2>
+                        7 Days Forecast
+                    </h2>
+
+
+                    <span class="forecast-label">
+                        Weekly Forecast
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="forecastContainer"
+                    class="forecast-container"
+                >
+
+                    <div class="forecast-placeholder">
+
+                        Search for a city to see
+                        the 7-day forecast.
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =========================
+                 WEATHER MAP
+            ========================== -->
+
+            <section class="map-section">
+
+
+                <div class="section-heading">
+
+                    <h2>
+                        Weather Condition Map
+                    </h2>
+
+                </div>
+
+
+                <div class="weather-map">
+
+                    <div class="map-overlay">
+
+                        <span>
+                            Precipitation
+                        </span>
+
+                        <div class="map-gradient"></div>
+
+                        <div class="map-scale">
+
+                            <span>
+                                Extreme
+                            </span>
+
+                            <span>
+                                Heavy
+                            </span>
+
+                            <span>
+                                Moderate
+                            </span>
+
+                            <span>
+                                Light
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="mapWeatherInfo"
+                        class="map-weather-info"
+                    >
+
+                        <span class="map-location">
+                            Search a city
+                        </span>
+
+                        <strong>
+                            🌧️
+                        </strong>
+
+                        <span>
+                            --
+                        </span>
+
+                    </div>
+
+
+                    <div class="map-lines">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =========================
+                 RECENT SEARCHES
+            ========================== -->
+
+            <section class="recent-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Recent Searches
+                    </h2>
+
+                    <button
+                        id="clearRecent"
+                        class="clear-btn"
+                    >
+                        Clear
+                    </button>
+
+                </div>
+
+
+                <div id="recentSearches">
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
